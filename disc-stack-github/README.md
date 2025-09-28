@@ -6,7 +6,7 @@ Revolutionary dairy waste processing technology that converts waste milk into va
 
 This repository contains the presentation website for our innovative modular disc stack dryer technology. The system offers:
 
-- **4-14x capacity increase** over traditional single drum systems
+- **4-14x capacity increase** over traditional single drum systems 
 - **50-60% power reduction** through hybrid heating technology
 - **Modular scalability** from 2-10 disc configurations
 - **Environmental benefits** with 407M litres waste milk diversion annually
