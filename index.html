@@ -168,7 +168,7 @@
       const buf = await crypto.subtle.digest('SHA-256', enc);
       return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
     }
-    const PASSWORD_HASH = "e93dcd84113f7f1c3e7f159e15c6f5c1343c9ed3540f1b22da05abfe15ec51f8"; // hash of dairytech202%
+    const PASSWORD_HASH = "7a032396bf12e1907fce79644df017015bd84d220a4dc12db22f2b961fd0b194"; // hash of dairytech202%
     const loginBtn = document.getElementById("loginButton");
     loginBtn.addEventListener("click", async ()=>{
       const input = document.getElementById("passwordInput").value;
