@@ -1,250 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Dairy Technology — Modular Disc Stack Dryer</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Tailwind via CDN -->
+  <meta charset="UTF-8">
+  <title>Dairy Technology – Modular Disc Stack Dryer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Tabs styles (lightweight) -->
   <style>
-    .tabs { display:flex; justify-content:center; gap:4px; margin: 0 auto 24px; border-bottom:1px solid #e5e7eb; flex-wrap:wrap; }
-    .tab { padding:10px 16px; cursor:pointer; border-bottom:3px solid transparent; transition: all .2s; border-radius:6px 6px 0 0; }
+    /* Tabs */
+    .tabs { display:flex; justify-content:center; flex-wrap:wrap; margin-bottom:24px; border-bottom:1px solid #e5e7eb; }
+    .tab { padding:10px 16px; cursor:pointer; border-bottom:3px solid transparent; transition:all .2s; border-radius:6px 6px 0 0; }
     .tab:hover { background:#f8fafc; }
     .tab.active { border-bottom-color:#2563eb; color:#2563eb; font-weight:600; }
     .tab-content { display:none; }
     .tab-content.active { display:block; }
-    /* Simple cards used inside tabs when not relying on Tailwind utilities alone */
-    .dt-card { background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:1.25rem; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
-    .dt-kpi { font-weight:700; }
-    .comparison-table { width:100%; border-collapse: collapse; }
-    .comparison-table th, .comparison-table td { border:1px solid #e5e7eb; padding:.75rem; text-align:left; }
-    .comparison-table th { background:#f8fafc; font-weight:600; }
-    .advantage { color:#16a34a; font-weight:600; }
+    /* Login overlay */
+    #loginScreen { position:fixed; inset:0; background:#f9fafb; display:flex; align-items:center; justify-content:center; z-index:50; }
+    .login-card { background:white; padding:2rem; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,.1); max-width:360px; width:100%; text-align:center; }
+    .login-card img { margin:0 auto 1rem; border-radius:12px; }
+    .error-message { color:#dc2626; margin-top:8px; display:none; }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
 
-  <!-- Header (kept from modern) -->
-  <header class="bg-white shadow-sm border-b">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center py-6">
-        <div class="flex items-center space-x-3">
-          <img
-            src="https://res.cloudinary.com/dmmpujcvs/image/upload/v1759395722/553061243_802554465499181_1929408745302545088_n_pio0wz.jpg"
-            alt="Dairy Tech Logo"
-            class="h-10 w-auto rounded"
-          />
-          <span class="font-semibold text-lg">Dairy Technology</span>
-        </div>
-        <nav class="hidden md:flex items-center space-x-6">
-          <a href="#technology" class="text-gray-700 hover:text-blue-600">Technology</a>
-          <a href="#products" class="text-gray-700 hover:text-blue-600">Products</a>
-          <a href="#benefits" class="text-gray-700 hover:text-blue-600">Benefits</a>
-          <a href="#comparison" class="text-gray-700 hover:text-blue-600">Comparison</a>
-          <a href="#contact" class="text-gray-700 hover:text-blue-600">Contact</a>
-        </nav>
-      </div>
+  <!-- Password Overlay -->
+  <div id="loginScreen">
+    <div class="login-card">
+      <img src="https://res.cloudinary.com/dmmpujcvs/image/upload/v1759395722/553061243_802554465499181_1929408745302545088_n_pio0wz.jpg"
+           alt="Dairy Tech Logo" class="h-20 w-20 object-cover">
+      <h1 class="text-xl font-semibold mb-4">Private Preview</h1>
+      <input type="password" id="passwordInput" placeholder="Enter password"
+             class="w-full border rounded px-3 py-2 focus:ring focus:ring-blue-200" />
+      <button id="loginButton"
+              class="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
+        Access Content
+      </button>
+      <p id="errorMessage" class="error-message">Incorrect password. Please try again.</p>
     </div>
-  </header>
+  </div>
 
-  <!-- Hero (kept from modern) -->
-  <section class="relative bg-gradient-to-r from-blue-600 to-green-600 text-white py-24 px-6 lg:px-8">
-    <div class="max-w-4xl mx-auto text-center">
-      <h1 class="text-4xl md:text-5xl font-bold mb-6">Modular Disc Stack Dryer Technology</h1>
-      <p class="text-lg md:text-xl">
-        Convert waste milk into valuable powder efficiently with a lightweight, scalable disc-stack system.
-      </p>
-    </div>
-  </section>
-
-  <!-- Metrics (kept from modern) -->
-  <section class="py-16 px-6 lg:px-8">
-    <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
-      <div>
-        <div class="text-3xl font-bold">NZD $2.2B+</div>
-        <p class="text-gray-600">Addressable Opportunity</p>
-      </div>
-      <div>
-        <div class="text-3xl font-bold">407M L</div>
-        <p class="text-gray-600">Waste Milk Diverted</p>
-      </div>
-      <div>
-        <div class="text-3xl font-bold">2.45M</div>
-        <p class="text-gray-600">Tonnes CO₂e Avoided</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Technology (tabs from enhanced; integrated to modern) -->
-  <section id="technology" class="py-20 px-6 lg:px-8 bg-white">
-    <div class="max-w-7xl mx-auto">
-      <h2 class="text-3xl md:text-4xl font-bold text-center mb-3">Revolutionary Technology</h2>
-      <p class="text-center text-lg mb-10">
-        Our modular disc stack architecture delivers <span class="font-semibold">4–14×</span> capacity with
-        <span class="font-semibold">50–60%</span> lower power demand compared to legacy drum systems.
-      </p>
-
-      <div class="tabs">
-        <div class="tab active" onclick="openTab(event, 'core-tech')">Core Technology</div>
-        <div class="tab" onclick="openTab(event, 'product-family')">Product Family</div>
-        <div class="tab" onclick="openTab(event, 'benefits')">Benefits</div>
-        <div class="tab" onclick="openTab(event, 'comparison')">Comparison</div>
-      </div>
-
-      <!-- Core Technology -->
-      <div id="core-tech" class="tab-content active">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="dt-card">
-            <h3 class="text-xl font-semibold mb-2">Modular Architecture</h3>
-            <p>Scale from 2–10 discs using standardised modules. Each disc adds ~5.04 m² drying surface area.</p>
-            <p class="mt-2">Surface efficiency ratio: <span class="dt-kpi text-blue-600">~40:1 vs single drum</span></p>
+  <!-- Main Content -->
+  <div id="content" class="hidden">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center py-6">
+          <div class="flex items-center space-x-3">
+            <img src="https://res.cloudinary.com/dmmpujcvs/image/upload/v1759395722/553061243_802554465499181_1929408745302545088_n_pio0wz.jpg"
+                 alt="Dairy Tech Logo" class="h-10 w-auto rounded">
+            <span class="font-semibold text-lg">Dairy Technology</span>
           </div>
-          <div class="dt-card">
-            <h3 class="text-xl font-semibold mb-2">Hybrid Heating</h3>
-            <p>Thermal oil + IR + induction options. Optimised heat transfer reduces energy demand by 50–60%.</p>
-            <p class="mt-2">Energy saving: <span class="dt-kpi text-green-600">50–60%</span></p>
-          </div>
-          <div class="dt-card">
-            <h3 class="text-xl font-semibold mb-2">Precision Spray Application</h3>
-            <p>Metered nozzles create consistent films for high surface utilisation and even drying.</p>
-            <p class="mt-2">Surface utilisation: <span class="dt-kpi text-blue-600">~94%</span></p>
-          </div>
-          <div class="dt-card">
-            <h3 class="text-xl font-semibold mb-2">Lightweight Construction</h3>
-            <p>Aluminium 6061-T6 chassis reduces weight, simplifies transport and installation.</p>
-            <p class="mt-2">Weight reduction: <span class="dt-kpi text-green-600">40–60%</span></p>
-          </div>
+          <nav class="hidden md:flex items-center space-x-6">
+            <a href="#technology" class="text-gray-700 hover:text-blue-600">Technology</a>
+            <a href="#products" class="text-gray-700 hover:text-blue-600">Products</a>
+            <a href="#benefits" class="text-gray-700 hover:text-blue-600">Benefits</a>
+            <a href="#comparison" class="text-gray-700 hover:text-blue-600">Comparison</a>
+            <a href="#contact" class="text-gray-700 hover:text-blue-600">Contact</a>
+          </nav>
         </div>
       </div>
+    </header>
 
-      <!-- Product Family -->
-      <div id="product-family" class="tab-content">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="dt-card">
-            <h3 class="text-lg font-semibold mb-1">DT-Mini</h3>
-            <p>2–3 discs, pilot and small-block farms. Throughput: ~0.5–1.0 L/min feed.</p>
-          </div>
-          <div class="dt-card">
-            <h3 class="text-lg font-semibold mb-1">DT-Core</h3>
-            <p>4–6 discs, standard deployment. Throughput: ~1–3 L/min feed.</p>
-          </div>
-          <div class="dt-card">
-            <h3 class="text-lg font-semibold mb-1">DT-Scale</h3>
-            <p>8–10 discs, high-volume or cluster sites. Throughput: ~3–5+ L/min feed.</p>
+    <!-- Hero -->
+    <section class="relative bg-gradient-to-r from-blue-600 to-green-600 text-white py-24 px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">Modular Disc Stack Dryer Technology</h1>
+        <p class="text-lg md:text-xl">
+          Convert waste milk into valuable powder efficiently with a lightweight, scalable disc-stack system.
+        </p>
+      </div>
+    </section>
+
+    <!-- Metrics -->
+    <section class="py-16 px-6 lg:px-8">
+      <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+        <div><div class="text-3xl font-bold">NZD $2.2B+</div><p class="text-gray-600">Opportunity</p></div>
+        <div><div class="text-3xl font-bold">407M L</div><p class="text-gray-600">Waste Milk Diverted</p></div>
+        <div><div class="text-3xl font-bold">2.45M</div><p class="text-gray-600">Tonnes CO₂e Avoided</p></div>
+      </div>
+    </section>
+
+    <!-- Technology Tabs -->
+    <section id="technology" class="py-20 px-6 lg:px-8 bg-white">
+      <div class="max-w-7xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-3">Revolutionary Technology</h2>
+        <p class="text-center text-lg mb-10">
+          Our modular disc stack architecture delivers <span class="font-semibold">4–14×</span> capacity with
+          <span class="font-semibold">50–60%</span> lower power demand compared to legacy drum systems.
+        </p>
+
+        <div class="tabs">
+          <div class="tab active" onclick="openTab(event, 'core-tech')">Core Technology</div>
+          <div class="tab" onclick="openTab(event, 'product-family')">Product Family</div>
+          <div class="tab" onclick="openTab(event, 'benefits')">Benefits</div>
+          <div class="tab" onclick="openTab(event, 'comparison')">Comparison</div>
+        </div>
+
+        <!-- Core Tech -->
+        <div id="core-tech" class="tab-content active">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="p-6 border rounded-lg shadow"><h3 class="text-xl font-semibold mb-2">Modular Architecture</h3><p>Scale 2–10 discs, each adding 5.04 m² drying surface. Efficiency ~40:1 vs single drum.</p></div>
+            <div class="p-6 border rounded-lg shadow"><h3 class="text-xl font-semibold mb-2">Hybrid Heating</h3><p>Thermal oil, IR & induction reduce energy demand by 50–60%.</p></div>
+            <div class="p-6 border rounded-lg shadow"><h3 class="text-xl font-semibold mb-2">Precision Spray</h3><p>Nozzles create uniform films for ~94% utilisation.</p></div>
+            <div class="p-6 border rounded-lg shadow"><h3 class="text-xl font-semibold mb-2">Lightweight</h3><p>Aluminium 6061-T6 reduces frame weight 40–60%.</p></div>
           </div>
         </div>
-      </div>
 
-      <!-- Benefits -->
-      <div id="benefits" class="tab-content">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="dt-card">
-            <h3 class="text-lg font-semibold mb-1">Compliance & Environment</h3>
-            <p>Keeps milk solids out of effluent streams while aligning with regulatory expectations.</p>
+        <!-- Product Family -->
+        <div id="product-family" class="tab-content">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="p-6 border rounded-lg shadow"><h3 class="font-semibold">DT-Mini</h3><p>2–3 discs. ~0.5–1.0 L/min.</p></div>
+            <div class="p-6 border rounded-lg shadow"><h3 class="font-semibold">DT-Core</h3><p>4–6 discs. ~1–3 L/min.</p></div>
+            <div class="p-6 border rounded-lg shadow"><h3 class="font-semibold">DT-Scale</h3><p>8–10 discs. ~3–5+ L/min.</p></div>
           </div>
-          <div class="dt-card">
-            <h3 class="text-lg font-semibold mb-1">Economics</h3>
-            <p>Converts waste milk to saleable powder; strong ROI at farm and network level.</p>
+        </div>
+
+        <!-- Benefits -->
+        <div id="benefits" class="tab-content">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="p-6 border rounded-lg shadow"><h3 class="font-semibold">Compliance</h3><p>Keeps milk solids out of effluent streams.</p></div>
+            <div class="p-6 border rounded-lg shadow"><h3 class="font-semibold">Economics</h3><p>Waste milk → powder. Strong ROI.</p></div>
+            <div class="p-6 border rounded-lg shadow"><h3 class="font-semibold">Serviceability</h3><p>Quick-swap discs & standard spares.</p></div>
+            <div class="p-6 border rounded-lg shadow"><h3 class="font-semibold">Scalability</h3><p>Add discs to grow capacity.</p></div>
           </div>
-          <div class="dt-card">
-            <h3 class="text-lg font-semibold mb-1">Serviceability</h3>
-            <p>Modular spares, standardised nozzles, quick-swap discs. Lower downtime, faster maintenance.</p>
-          </div>
-          <div class="dt-card">
-            <h3 class="text-lg font-semibold mb-1">Scalability</h3>
-            <p>Add discs to grow capacity without a full redesign; upgrade heating modules as needed.</p>
+        </div>
+
+        <!-- Comparison -->
+        <div id="comparison" class="tab-content">
+          <div class="overflow-x-auto">
+            <table class="w-full border-collapse">
+              <thead><tr><th class="border p-2 bg-gray-100">Metric</th><th class="border p-2 bg-gray-100">Disc Stack</th><th class="border p-2 bg-gray-100">Single Drum</th><th class="border p-2 bg-gray-100">Advantage</th></tr></thead>
+              <tbody>
+                <tr><td class="border p-2">Surface Efficiency</td><td class="border p-2">~40:1</td><td class="border p-2">1:1</td><td class="border p-2 text-green-600 font-semibold">Massive gain</td></tr>
+                <tr><td class="border p-2">Power Use</td><td class="border p-2">−50–60%</td><td class="border p-2">Baseline</td><td class="border p-2 text-green-600 font-semibold">Lower OPEX</td></tr>
+                <tr><td class="border p-2">Surface Utilisation</td><td class="border p-2">~94%</td><td class="border p-2">~65%</td><td class="border p-2 text-green-600 font-semibold">+45%</td></tr>
+                <tr><td class="border p-2">Operating RPM</td><td class="border p-2">60–100</td><td class="border p-2">15–25</td><td class="border p-2 text-green-600 font-semibold">4–6× faster</td></tr>
+                <tr><td class="border p-2">Frame Weight</td><td class="border p-2">−40–60%</td><td class="border p-2">Baseline</td><td class="border p-2 text-green-600 font-semibold">Easy install</td></tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Comparison -->
-      <div id="comparison" class="tab-content">
-        <div class="overflow-x-auto">
-          <table class="comparison-table">
-            <thead>
-              <tr>
-                <th>Metric</th>
-                <th>Disc Stack (DT)</th>
-                <th>Single Drum</th>
-                <th>Advantage</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Surface Area Efficiency</td>
-                <td>~40:1</td>
-                <td>1:1</td>
-                <td class="advantage">Massive gain</td>
-              </tr>
-              <tr>
-                <td>Power Use</td>
-                <td>−50–60%</td>
-                <td>Baseline</td>
-                <td class="advantage">Lower OPEX</td>
-              </tr>
-              <tr>
-                <td>Surface Utilisation</td>
-                <td>~94%</td>
-                <td>~65%</td>
-                <td class="advantage">+45%</td>
-              </tr>
-              <tr>
-                <td>Operating RPM</td>
-                <td>60–100</td>
-                <td>15–25</td>
-                <td class="advantage">4–6× faster</td>
-              </tr>
-              <tr>
-                <td>Frame Weight</td>
-                <td>−40–60%</td>
-                <td>Baseline</td>
-                <td class="advantage">Easier install</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+    <!-- Roadmap / Path to Market -->
+    <section class="py-20 px-6 lg:px-8 bg-gray-50">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-4">Path to Market</h2>
+        <p class="text-lg text-gray-600">Prototype → Pilot farms → Cluster deployments → Export scale.</p>
       </div>
+    </section>
 
-    </div>
-  </section>
+    <!-- Footer -->
+    <footer id="contact" class="bg-gray-900 text-white py-12">
+      <div class="max-w-7xl mx-auto text-center">
+        <h2 class="text-2xl font-bold mb-4">Get in touch</h2>
+        <p>Email: <a href="mailto:info@dairytech.co.nz" class="underline">info@dairytech.co.nz</a></p>
+        <p>Phone: <a href="tel:+6491234567" class="underline">+64 9 123 4567</a></p>
+      </div>
+    </footer>
+  </div>
 
-  <!-- Products anchor (kept simple to match nav) -->
-  <section id="products" class="py-16 px-6 lg:px-8 bg-gray-50">
-    <div class="max-w-6xl mx-auto">
-      <h2 class="text-2xl md:text-3xl font-bold mb-4">Products</h2>
-      <p class="text-gray-700">DT-Mini, DT-Core, and DT-Scale configurations to suit farm size and deployment model.</p>
-    </div>
-  </section>
-
-  <!-- Benefits anchor (summary, detailed in tabs) -->
-  <section id="benefits" class="py-16 px-6 lg:px-8 bg-white">
-    <div class="max-w-6xl mx-auto">
-      <h2 class="text-2xl md:text-3xl font-bold mb-4">Benefits</h2>
-      <p class="text-gray-700">Compliance, efficiency, ROI, and modular serviceability — see the Technology tabs for detail.</p>
-    </div>
-  </section>
-
-  <!-- Path to Market (kept from modern) -->
-  <section class="py-20 px-6 lg:px-8 bg-gray-50">
-    <div class="max-w-4xl mx-auto text-center">
-      <h2 class="text-3xl font-bold mb-4">Path to Market</h2>
-      <p class="text-lg text-gray-600">Prototype → Pilot farms → Cluster deployments → Export scale.</p>
-    </div>
-  </section>
-
-  <!-- Footer / Contact (kept from modern; with links) -->
-  <footer id="contact" class="bg-gray-900 text-white py-12">
-    <div class="max-w-7xl mx-auto text-center">
-      <h2 class="text-2xl font-bold mb-4">Get in touch</h2>
-      <p>Email: <a href="mailto:info@dairytech.co.nz" class="underline">info@dairytech.co.nz</a></p>
-      <p>Phone: <a href="tel:+6491234567" class="underline">+64 9 123 4567</a></p>
-    </div>
-  </footer>
-
-  <!-- Tabs behaviour -->
+  <!-- Scripts -->
   <script>
+    // Password protection with SHA-256 hash
+    async function sha256(text){
+      const enc = new TextEncoder().encode(text);
+      const buf = await crypto.subtle.digest('SHA-256', enc);
+      return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+    }
+    const PASSWORD_HASH = "e93dcd84113f7f1c3e7f159e15c6f5c1343c9ed3540f1b22da05abfe15ec51f8"; // hash of dairytech202%
+    const loginBtn = document.getElementById("loginButton");
+    loginBtn.addEventListener("click", async ()=>{
+      const input = document.getElementById("passwordInput").value;
+      const hash = await sha256(input);
+      if(hash === PASSWORD_HASH){
+        document.getElementById("loginScreen").style.display = "none";
+        document.getElementById("content").classList.remove("hidden");
+      } else {
+        document.getElementById("errorMessage").style.display = "block";
+        setTimeout(()=>{ document.getElementById("errorMessage").style.display="none"; },3000);
+      }
+    });
+
+    // Tabs
     function openTab(evt, tabId) {
       const wrap = evt.currentTarget.closest('#technology');
       const tabs = wrap.querySelectorAll('.tab');
@@ -253,9 +191,7 @@
       panels.forEach(p => p.classList.remove('active'));
       evt.currentTarget.classList.add('active');
       const panel = wrap.querySelector('#' + tabId);
-      if (panel) panel.classList.add('active');
-      // Optional: update hash without scrolling
-      if (history && history.replaceState) history.replaceState(null, '', '#'+tabId);
+      if(panel) panel.classList.add('active');
     }
   </script>
 </body>
