@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Dairy Technology – Modular Disc Stack Dryer</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Tailwind via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
+    /* Tabs */
     .tabs { display:flex; justify-content:center; flex-wrap:wrap; margin-bottom:24px; border-bottom:1px solid #e5e7eb; }
     .tab { padding:10px 16px; cursor:pointer; border-bottom:3px solid transparent; transition:all .2s; border-radius:6px 6px 0 0; }
     .tab:hover { background:#f8fafc; }
     .tab.active { border-bottom-color:#2563eb; color:#2563eb; font-weight:600; }
     .tab-content { display:none; }
     .tab-content.active { display:block; }
+
+    /* Branded password overlay */
     #loginScreen { position:fixed; inset:0; background:#f9fafb; display:flex; align-items:center; justify-content:center; z-index:50; }
     .login-card { background:white; padding:2rem; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,.1); max-width:360px; width:100%; text-align:center; }
     .login-card img { margin:0 auto 1rem; border-radius:12px; }
@@ -21,18 +25,19 @@
 <body class="bg-gray-50 text-gray-900">
 
   <!-- Password Overlay -->
-  <div id="loginScreen">
+  <div id="loginScreen" aria-modal="true" role="dialog">
     <div class="login-card">
       <img src="https://res.cloudinary.com/dmmpujcvs/image/upload/v1759395722/553061243_802554465499181_1929408745302545088_n_pio0wz.jpg"
            alt="Dairy Tech Logo" class="h-20 w-20 object-cover">
       <h1 class="text-xl font-semibold mb-4">Private Preview</h1>
       <input type="password" id="passwordInput" placeholder="Enter password"
-             class="w-full border rounded px-3 py-2 focus:ring focus:ring-blue-200" />
+             class="w-full border rounded px-3 py-2 focus:ring focus:ring-blue-200" autocomplete="current-password" />
       <button id="loginButton"
               class="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
         Access Content
       </button>
-      <p id="errorMessage" class="error-message">Incorrect password. Please try again.</p>
+      <p id="errorMessage" class="error-message" role="alert">Incorrect password. Please try again.</p>
+      <p class="mt-3 text-xs text-gray-500">Tip: When testing locally, open this file in a browser. For production, host over HTTPS.</p>
     </div>
   </div>
 
@@ -44,14 +49,14 @@
         <div class="flex justify-between items-center py-6">
           <div class="flex items-center space-x-3">
             <img src="https://res.cloudinary.com/dmmpujcvs/image/upload/v1759395722/553061243_802554465499181_1929408745302545088_n_pio0wz.jpg"
-                 alt="Dairy Tech Logo" class="h-10 w-auto rounded">
+                 alt="Dairy Tech Logo" class="h-10 w-auto rounded" />
             <span class="font-semibold text-lg">Dairy Technology</span>
           </div>
           <nav class="hidden md:flex items-center space-x-6">
-            <a href="#technology" class="text-gray-700 hover:text-blue-600">Technology</a>
+            <a href="#technology" class="text-gray-700 hover:text-blue-600" data-tab="core-tech">Technology</a>
             <a href="#products" class="text-gray-700 hover:text-blue-600">Products</a>
-            <a href="#benefits" class="text-gray-700 hover:text-blue-600">Benefits</a>
-            <a href="#comparison" class="text-gray-700 hover:text-blue-600">Comparison</a>
+            <a href="#technology" class="text-gray-700 hover:text-blue-600" data-tab="benefits">Benefits</a>
+            <a href="#technology" class="text-gray-700 hover:text-blue-600" data-tab="comparison">Comparison</a>
             <a href="#contact" class="text-gray-700 hover:text-blue-600">Contact</a>
           </nav>
         </div>
@@ -96,29 +101,50 @@
         <!-- Core Tech -->
         <div id="core-tech" class="tab-content active">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="p-6 border rounded-lg shadow"><h3 class="text-xl font-semibold mb-2">Modular Architecture</h3><p>Scale 2–10 discs, each adding 5.04 m² drying surface. Efficiency ~40:1 vs single drum.</p></div>
-            <div class="p-6 border rounded-lg shadow"><h3 class="text-xl font-semibold mb-2">Hybrid Heating</h3><p>Thermal oil, IR & induction reduce energy demand by 50–60%.</p></div>
-            <div class="p-6 border rounded-lg shadow"><h3 class="text-xl font-semibold mb-2">Precision Spray</h3><p>Nozzles create uniform films for ~94% utilisation.</p></div>
-            <div class="p-6 border rounded-lg shadow"><h3 class="text-xl font-semibold mb-2">Lightweight</h3><p>Aluminium 6061-T6 reduces frame weight 40–60%.</p></div>
+            <div class="p-6 border rounded-lg shadow">
+              <h3 class="text-xl font-semibold mb-2">Modular Architecture</h3>
+              <p>Scale 2–10 discs, each adding ~5.04 m² drying surface. Efficiency ~40:1 vs single drum.</p>
+            </div>
+            <div class="p-6 border rounded-lg shadow">
+              <h3 class="text-xl font-semibold mb-2">Hybrid Heating</h3>
+              <p>Thermal oil, infrared and induction options reduce energy demand by 50–60%.</p>
+            </div>
+            <div class="p-6 border rounded-lg shadow">
+              <h3 class="text-xl font-semibold mb-2">Precision Spray</h3>
+              <p>Metered nozzles create uniform films for ~94% surface utilisation and consistent drying.</p>
+            </div>
+            <div class="p-6 border rounded-lg shadow">
+              <h3 class="text-xl font-semibold mb-2">Lightweight</h3>
+              <p>Aluminium 6061-T6 reduces frame weight by 40–60% for easier transport and install.</p>
+            </div>
           </div>
         </div>
 
         <!-- Product Family -->
         <div id="product-family" class="tab-content">
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="p-6 border rounded-lg shadow"><h3 class="font-semibold">DT-Mini</h3><p>2–3 discs. ~0.5–1.0 L/min.</p></div>
-            <div class="p-6 border rounded-lg shadow"><h3 class="font-semibold">DT-Core</h3><p>4–6 discs. ~1–3 L/min.</p></div>
-            <div class="p-6 border rounded-lg shadow"><h3 class="font-semibold">DT-Scale</h3><p>8–10 discs. ~3–5+ L/min.</p></div>
+            <div class="p-6 border rounded-lg shadow">
+              <h3 class="font-semibold">DT-Mini</h3>
+              <p>2–3 discs. ~0.5–1.0 L/min feed. Pilot and small-block farms.</p>
+            </div>
+            <div class="p-6 border rounded-lg shadow">
+              <h3 class="font-semibold">DT-Core</h3>
+              <p>4–6 discs. ~1–3 L/min feed. Standard deployment.</p>
+            </div>
+            <div class="p-6 border rounded-lg shadow">
+              <h3 class="font-semibold">DT-Scale</h3>
+              <p>8–10 discs. ~3–5+ L/min feed. High-volume or cluster sites.</p>
+            </div>
           </div>
         </div>
 
         <!-- Benefits -->
         <div id="benefits" class="tab-content">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="p-6 border rounded-lg shadow"><h3 class="font-semibold">Compliance</h3><p>Keeps milk solids out of effluent streams.</p></div>
-            <div class="p-6 border rounded-lg shadow"><h3 class="font-semibold">Economics</h3><p>Waste milk → powder. Strong ROI.</p></div>
-            <div class="p-6 border rounded-lg shadow"><h3 class="font-semibold">Serviceability</h3><p>Quick-swap discs & standard spares.</p></div>
-            <div class="p-6 border rounded-lg shadow"><h3 class="font-semibold">Scalability</h3><p>Add discs to grow capacity.</p></div>
+            <div class="p-6 border rounded-lg shadow"><h3 class="font-semibold">Compliance & Environment</h3><p>Keeps milk solids out of effluent, aligns with regulatory expectations.</p></div>
+            <div class="p-6 border rounded-lg shadow"><h3 class="font-semibold">Economics</h3><p>Converts waste milk to saleable powder; strong ROI on farm and in network models.</p></div>
+            <div class="p-6 border rounded-lg shadow"><h3 class="font-semibold">Serviceability</h3><p>Modular spares, standardised nozzles, quick-swap discs for reduced downtime.</p></div>
+            <div class="p-6 border rounded-lg shadow"><h3 class="font-semibold">Scalability</h3><p>Add discs to grow capacity without full redesign; upgrade heating modules as needed.</p></div>
           </div>
         </div>
 
@@ -126,17 +152,25 @@
         <div id="comparison" class="tab-content">
           <div class="overflow-x-auto">
             <table class="w-full border-collapse">
-              <thead><tr><th class="border p-2 bg-gray-100">Metric</th><th class="border p-2 bg-gray-100">Disc Stack</th><th class="border p-2 bg-gray-100">Single Drum</th><th class="border p-2 bg-gray-100">Advantage</th></tr></thead>
+              <thead>
+                <tr>
+                  <th class="border p-2 bg-gray-100 text-left">Metric</th>
+                  <th class="border p-2 bg-gray-100 text-left">Disc Stack (DT)</th>
+                  <th class="border p-2 bg-gray-100 text-left">Single Drum</th>
+                  <th class="border p-2 bg-gray-100 text-left">Advantage</th>
+                </tr>
+              </thead>
               <tbody>
-                <tr><td class="border p-2">Surface Efficiency</td><td class="border p-2">~40:1</td><td class="border p-2">1:1</td><td class="border p-2 text-green-600 font-semibold">Massive gain</td></tr>
+                <tr><td class="border p-2">Surface Area Efficiency</td><td class="border p-2">~40:1</td><td class="border p-2">1:1</td><td class="border p-2 text-green-600 font-semibold">Massive gain</td></tr>
                 <tr><td class="border p-2">Power Use</td><td class="border p-2">−50–60%</td><td class="border p-2">Baseline</td><td class="border p-2 text-green-600 font-semibold">Lower OPEX</td></tr>
                 <tr><td class="border p-2">Surface Utilisation</td><td class="border p-2">~94%</td><td class="border p-2">~65%</td><td class="border p-2 text-green-600 font-semibold">+45%</td></tr>
                 <tr><td class="border p-2">Operating RPM</td><td class="border p-2">60–100</td><td class="border p-2">15–25</td><td class="border p-2 text-green-600 font-semibold">4–6× faster</td></tr>
-                <tr><td class="border p-2">Frame Weight</td><td class="border p-2">−40–60%</td><td class="border p-2">Baseline</td><td class="border p-2 text-green-600 font-semibold">Easy install</td></tr>
+                <tr><td class="border p-2">Frame Weight</td><td class="border p-2">−40–60%</td><td class="border p-2">Baseline</td><td class="border p-2 text-green-600 font-semibold">Easier install</td></tr>
               </tbody>
             </table>
           </div>
         </div>
+
       </div>
     </section>
 
@@ -160,32 +194,49 @@
 
   <!-- Scripts -->
   <script>
-    // Password hash for "dairytech202%"
-    const PASSWORD_HASH = "7a032396bf12e1907fce79644df017015bd84d220a4dc12db22f2b961fd0b194";
+    // --- Password handling ---
+    const PASSWORD_HASH = "7a032396bf12e1907fce79644df017015bd84d220a4dc12db22f2b961fd0b194"; // hash of "dairytech202%"
 
     async function sha256(text){
+      if (!('crypto' in window) || !crypto.subtle) return null; // not available in file:// etc
       const enc = new TextEncoder().encode(text);
       const buf = await crypto.subtle.digest('SHA-256', enc);
       return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
     }
 
-    document.getElementById("loginButton").addEventListener("click", async ()=>{
-      const input = document.getElementById("passwordInput").value;
-      const hash = await sha256(input);
-      if(hash === PASSWORD_HASH){
+    async function checkPassword(input){
+      // Prefer secure hash route
+      const h = await sha256(input);
+      if (h) return h === PASSWORD_HASH;
+
+      // Dev-only fallback for file:// previews
+      if (location.protocol === 'file:') {
+        return input === 'dairytech202%';
+      }
+      // On http/https without WebCrypto (very rare), deny
+      return false;
+    }
+
+    async function tryLogin(){
+      const val = document.getElementById("passwordInput").value;
+      const ok = await checkPassword(val);
+      const error = document.getElementById("errorMessage");
+      if (ok){
         document.getElementById("loginScreen").style.display = "none";
         document.getElementById("content").classList.remove("hidden");
+        error.style.display = "none";
       } else {
-        document.getElementById("errorMessage").style.display = "block";
-        setTimeout(()=>{ document.getElementById("errorMessage").style.display="none"; },3000);
+        error.style.display = "block";
+        setTimeout(()=>{ error.style.display="none"; }, 3000);
       }
-    });
+    }
 
+    document.getElementById("loginButton").addEventListener("click", tryLogin);
     document.getElementById("passwordInput").addEventListener("keydown", (e)=>{
-      if(e.key === "Enter"){ document.getElementById("loginButton").click(); }
+      if(e.key === "Enter"){ tryLogin(); }
     });
 
-    // Tabs
+    // --- Tabs ---
     function openTab(evt, tabId) {
       const wrap = evt.currentTarget.closest('#technology');
       const tabs = wrap.querySelectorAll('.tab');
@@ -196,6 +247,18 @@
       const panel = wrap.querySelector('#' + tabId);
       if(panel) panel.classList.add('active');
     }
+
+    // Optional: make header nav switch relevant tabs
+    document.querySelectorAll('nav a[data-tab]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        e.preventDefault();
+        const tabId = a.getAttribute('data-tab');
+        const tech = document.getElementById('technology');
+        const tabBtn = tech.querySelector('.tab[onclick*="'+tabId+'"]');
+        if (tabBtn) { tabBtn.click(); }
+        tech.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
   </script>
 </body>
 </html>
