@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <title>Dairy Technology – Modular Disc Stack Dryer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Tailwind via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     /* Tabs */
@@ -15,11 +14,20 @@
     .tab-content { display:none; }
     .tab-content.active { display:block; }
 
-    /* Branded password overlay */
+    /* Password overlay */
     #loginScreen { position:fixed; inset:0; background:#f9fafb; display:flex; align-items:center; justify-content:center; z-index:50; }
     .login-card { background:white; padding:2rem; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,.1); max-width:360px; width:100%; text-align:center; }
     .login-card img { margin:0 auto 1rem; border-radius:12px; }
     .error-message { color:#dc2626; margin-top:8px; display:none; }
+
+    /* Animations */
+    .reveal { opacity:0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.in-view { opacity:1; transform:none; }
+    .reveal-delay-1 { transition-delay:.1s; }
+    .reveal-delay-2 { transition-delay:.2s; }
+    .reveal-delay-3 { transition-delay:.3s; }
+    .fade-in { opacity:0; transition:opacity .5s ease; }
+    .fade-in.show { opacity:1; }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
@@ -27,7 +35,7 @@
   <!-- Password Overlay -->
   <div id="loginScreen" aria-modal="true" role="dialog">
     <div class="login-card">
-      <img src="https://res.cloudinary.com/dmmpujcvs/image/upload/v1759395722/553061243_802554465499181_1929408745302545088_n_pio0wz.jpg"
+      <img src="https://res.cloudinary.com/dmmpujcvs/image/upload/v1759650694/Screenshot_2025-10-05_at_8.50.44_PM_sy7ygm.png"
            alt="Dairy Tech Logo" class="h-20 w-20 object-cover">
       <h1 class="text-xl font-semibold mb-4">Private Preview</h1>
       <input type="password" id="passwordInput" placeholder="Enter password"
@@ -37,7 +45,7 @@
         Access Content
       </button>
       <p id="errorMessage" class="error-message" role="alert">Incorrect password. Please try again.</p>
-      <p class="mt-3 text-xs text-gray-500">Tip: When testing locally, open this file in a browser. For production, host over HTTPS.</p>
+      <p class="mt-3 text-xs text-gray-500">Tip: when testing locally, open this file directly; for production, host over HTTPS.</p>
     </div>
   </div>
 
@@ -48,7 +56,7 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center py-6">
           <div class="flex items-center space-x-3">
-            <img src="https://res.cloudinary.com/dmmpujcvs/image/upload/v1759395722/553061243_802554465499181_1929408745302545088_n_pio0wz.jpg"
+            <img src="https://res.cloudinary.com/dmmpujcvs/image/upload/v1759650694/Screenshot_2025-10-05_at_8.50.44_PM_sy7ygm.png"
                  alt="Dairy Tech Logo" class="h-10 w-auto rounded" />
             <span class="font-semibold text-lg">Dairy Technology</span>
           </div>
@@ -65,7 +73,7 @@
 
     <!-- Hero -->
     <section class="relative bg-gradient-to-r from-blue-600 to-green-600 text-white py-24 px-6 lg:px-8">
-      <div class="max-w-4xl mx-auto text-center">
+      <div class="max-w-4xl mx-auto text-center reveal">
         <h1 class="text-4xl md:text-5xl font-bold mb-6">Modular Disc Stack Dryer Technology</h1>
         <p class="text-lg md:text-xl">
           Convert waste milk into valuable powder efficiently with a lightweight, scalable disc-stack system.
@@ -76,15 +84,15 @@
     <!-- Metrics -->
     <section class="py-16 px-6 lg:px-8">
       <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
-        <div><div class="text-3xl font-bold">NZD $2.2B+</div><p class="text-gray-600">Opportunity</p></div>
-        <div><div class="text-3xl font-bold">407M L</div><p class="text-gray-600">Waste Milk Diverted</p></div>
-        <div><div class="text-3xl font-bold">2.45M</div><p class="text-gray-600">Tonnes CO₂e Avoided</p></div>
+        <div class="reveal reveal-delay-1"><div class="text-3xl font-bold">NZD $2.2B+</div><p class="text-gray-600">Opportunity</p></div>
+        <div class="reveal reveal-delay-2"><div class="text-3xl font-bold">407M L</div><p class="text-gray-600">Waste Milk Diverted</p></div>
+        <div class="reveal reveal-delay-3"><div class="text-3xl font-bold">2.45M</div><p class="text-gray-600">Tonnes CO₂e Avoided</p></div>
       </div>
     </section>
 
     <!-- Technology Tabs -->
     <section id="technology" class="py-20 px-6 lg:px-8 bg-white">
-      <div class="max-w-7xl mx-auto">
+      <div class="max-w-7xl mx-auto reveal">
         <h2 class="text-3xl md:text-4xl font-bold text-center mb-3">Revolutionary Technology</h2>
         <p class="text-center text-lg mb-10">
           Our modular disc stack architecture delivers <span class="font-semibold">4–14×</span> capacity with
@@ -98,58 +106,33 @@
           <div class="tab" onclick="openTab(event, 'comparison')">Comparison</div>
         </div>
 
-        <!-- Core Tech -->
-        <div id="core-tech" class="tab-content active">
+        <div id="core-tech" class="tab-content active fade-in show">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="p-6 border rounded-lg shadow">
-              <h3 class="text-xl font-semibold mb-2">Modular Architecture</h3>
-              <p>Scale 2–10 discs, each adding ~5.04 m² drying surface. Efficiency ~40:1 vs single drum.</p>
-            </div>
-            <div class="p-6 border rounded-lg shadow">
-              <h3 class="text-xl font-semibold mb-2">Hybrid Heating</h3>
-              <p>Thermal oil, infrared and induction options reduce energy demand by 50–60%.</p>
-            </div>
-            <div class="p-6 border rounded-lg shadow">
-              <h3 class="text-xl font-semibold mb-2">Precision Spray</h3>
-              <p>Metered nozzles create uniform films for ~94% surface utilisation and consistent drying.</p>
-            </div>
-            <div class="p-6 border rounded-lg shadow">
-              <h3 class="text-xl font-semibold mb-2">Lightweight</h3>
-              <p>Aluminium 6061-T6 reduces frame weight by 40–60% for easier transport and install.</p>
-            </div>
+            <div class="p-6 border rounded-lg shadow"><h3 class="text-xl font-semibold mb-2">Modular Architecture</h3><p>Scale 2–10 discs, each adding ~5.04 m² drying surface. Efficiency ~40:1 vs single drum.</p></div>
+            <div class="p-6 border rounded-lg shadow"><h3 class="text-xl font-semibold mb-2">Hybrid Heating</h3><p>Thermal oil, infrared and induction options reduce energy demand by 50–60%.</p></div>
+            <div class="p-6 border rounded-lg shadow"><h3 class="text-xl font-semibold mb-2">Precision Spray</h3><p>Metered nozzles create uniform films for ~94% surface utilisation and consistent drying.</p></div>
+            <div class="p-6 border rounded-lg shadow"><h3 class="text-xl font-semibold mb-2">Lightweight</h3><p>Aluminium 6061-T6 reduces frame weight by 40–60% for easier transport and install.</p></div>
           </div>
         </div>
 
-        <!-- Product Family -->
-        <div id="product-family" class="tab-content">
+        <div id="product-family" class="tab-content fade-in">
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="p-6 border rounded-lg shadow">
-              <h3 class="font-semibold">DT-Mini</h3>
-              <p>2–3 discs. ~0.5–1.0 L/min feed. Pilot and small-block farms.</p>
-            </div>
-            <div class="p-6 border rounded-lg shadow">
-              <h3 class="font-semibold">DT-Core</h3>
-              <p>4–6 discs. ~1–3 L/min feed. Standard deployment.</p>
-            </div>
-            <div class="p-6 border rounded-lg shadow">
-              <h3 class="font-semibold">DT-Scale</h3>
-              <p>8–10 discs. ~3–5+ L/min feed. High-volume or cluster sites.</p>
-            </div>
+            <div class="p-6 border rounded-lg shadow"><h3 class="font-semibold">DT-Mini</h3><p>2–3 discs. ~0.5–1.0 L/min feed. Pilot and small-block farms.</p></div>
+            <div class="p-6 border rounded-lg shadow"><h3 class="font-semibold">DT-Core</h3><p>4–6 discs. ~1–3 L/min feed. Standard deployment.</p></div>
+            <div class="p-6 border rounded-lg shadow"><h3 class="font-semibold">DT-Scale</h3><p>8–10 discs. ~3–5+ L/min feed. High-volume or cluster sites.</p></div>
           </div>
         </div>
 
-        <!-- Benefits -->
-        <div id="benefits" class="tab-content">
+        <div id="benefits" class="tab-content fade-in">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="p-6 border rounded-lg shadow"><h3 class="font-semibold">Compliance & Environment</h3><p>Keeps milk solids out of effluent, aligns with regulatory expectations.</p></div>
+            <div class="p-6 border rounded-lg shadow"><h3 class="font-semibold">Compliance & Environment</h3><p>Keeps milk solids out of effluent; aligns with regulatory expectations.</p></div>
             <div class="p-6 border rounded-lg shadow"><h3 class="font-semibold">Economics</h3><p>Converts waste milk to saleable powder; strong ROI on farm and in network models.</p></div>
             <div class="p-6 border rounded-lg shadow"><h3 class="font-semibold">Serviceability</h3><p>Modular spares, standardised nozzles, quick-swap discs for reduced downtime.</p></div>
             <div class="p-6 border rounded-lg shadow"><h3 class="font-semibold">Scalability</h3><p>Add discs to grow capacity without full redesign; upgrade heating modules as needed.</p></div>
           </div>
         </div>
 
-        <!-- Comparison -->
-        <div id="comparison" class="tab-content">
+        <div id="comparison" class="tab-content fade-in">
           <div class="overflow-x-auto">
             <table class="w-full border-collapse">
               <thead>
@@ -170,15 +153,149 @@
             </table>
           </div>
         </div>
-
       </div>
     </section>
 
-    <!-- Path to Market -->
-    <section class="py-20 px-6 lg:px-8 bg-gray-50">
-      <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-3xl font-bold mb-4">Path to Market</h2>
-        <p class="text-lg text-gray-600">Prototype → Pilot farms → Cluster deployments → Export scale.</p>
+    <!-- Market Insights -->
+    <section id="products" class="py-20 px-6 lg:px-8 bg-gray-50">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-12 reveal">
+          <h2 class="text-3xl md:text-4xl font-bold">Market Insights</h2>
+          <p class="text-lg text-gray-600 mt-2">Where modular on-farm drying wins first</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="p-6 bg-white rounded-xl border shadow reveal reveal-delay-1"><h3 class="font-semibold text-lg mb-1">On-farm waste streams</h3><p class="text-gray-600">Surplus/waste milk conversion to powder, reducing disposal costs and emissions.</p></div>
+          <div class="p-6 bg-white rounded-xl border shadow reveal reveal-delay-2"><h3 class="font-semibold text-lg mb-1">Cluster/co-op sites</h3><p class="text-gray-600">Shared assets serving 10–30 farms with central QA and logistics.</p></div>
+          <div class="p-6 bg-white rounded-xl border shadow reveal reveal-delay-3"><h3 class="font-semibold text-lg mb-1">Niche powders</h3><p class="text-gray-600">Calf/multi-species blends, specialty ingredients, and seasonal skims.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Global Partners -->
+    <section class="py-16 px-6 lg:px-8 bg-white">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-10 reveal">
+          <h2 class="text-3xl md:text-4xl font-bold">Global Partners</h2>
+          <p class="text-lg text-gray-600 mt-2">Exploring pilots and distribution with aligned organisations</p>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-6 items-center justify-items-center">
+          <div class="reveal"><div class="h-12 w-28 bg-gray-200 rounded"></div></div>
+          <div class="reveal reveal-delay-1"><div class="h-12 w-28 bg-gray-200 rounded"></div></div>
+          <div class="reveal reveal-delay-2"><div class="h-12 w-28 bg-gray-200 rounded"></div></div>
+          <div class="reveal reveal-delay-3"><div class="h-12 w-28 bg-gray-200 rounded"></div></div>
+          <div class="reveal reveal-delay-2"><div class="h-12 w-28 bg-gray-200 rounded"></div></div>
+        </div>
+        <p class="text-center text-sm text-gray-500 mt-6 reveal">Placeholders shown — swap with your partner marks.</p>
+      </div>
+    </section>
+
+    <!-- Roadmap -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16 reveal">
+          <h3 class="text-4xl font-bold text-gray-900 mb-4">Clear Path to Market</h3>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">Phased development approach minimises risk while maximising opportunity</p>
+        </div>
+
+        <div class="relative">
+          <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 to-green-500 rounded"></div>
+
+          <div class="space-y-12">
+            <div class="flex flex-col md:flex-row items-center">
+              <div class="md:w-1/2 md:pr-12 md:text-right">
+                <div class="bg-white rounded-lg shadow-lg p-6 md:ml-auto max-w-md reveal">
+                  <div class="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm mb-3">1</div>
+                  <h4 class="text-xl font-semibold mb-2">Foundation</h4>
+                  <p class="text-gray-600 mb-1">Months 1–12</p>
+                  <ul class="text-gray-600 list-disc list-inside">
+                    <li>2-disc prototype development and validation</li>
+                    <li>Milk powder spec and QC parameters set</li>
+                    <li>Supplier onboarding and safety case</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="hidden md:flex items-center justify-center w-10 h-10 bg-blue-600 text-white font-bold border-4 border-white rounded-full shadow-lg z-10 reveal">1</div>
+              <div class="md:w-1/2 md:pl-12 mt-6 md:mt-0">
+                <div class="bg-white rounded-lg shadow p-6 max-w-md reveal reveal-delay-1">
+                  <p class="text-gray-700"><span class="font-semibold">Output:</span> validated prototype, test data, pilot-ready design pack.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row items-center">
+              <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+                <div class="bg-white rounded-lg shadow-lg p-6 md:ml-auto max-w-md reveal">
+                  <div class="inline-block bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm mb-3">2</div>
+                  <h4 class="text-xl font-semibold mb-2">Pilot Deployment</h4>
+                  <p class="text-gray-600 mb-1">Months 13–24</p>
+                  <ul class="text-gray-600 list-disc list-inside">
+                    <li>3–5 pilot farms across regions</li>
+                    <li>Powder handling, packaging, logistics</li>
+                    <li>Compliance verification and on-farm SOPs</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="hidden md:flex items-center justify-center w-10 h-10 bg-green-600 text-white font-bold border-4 border-white rounded-full shadow-lg z-10 order-1 md:order-2 reveal">2</div>
+              <div class="md:w-1/2 md:pl-12 order-3">
+                <div class="bg-white rounded-lg shadow p-6 max-w-md reveal reveal-delay-1">
+                  <p class="text-gray-700"><span class="font-semibold">Output:</span> pilot performance data, refined BOM, service model.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row items-center">
+              <div class="md:w-1/2 md:pr-12 md:text-right">
+                <div class="bg-white rounded-lg shadow-lg p-6 md:ml-auto max-w-md reveal">
+                  <div class="inline-block bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm mb-3">3</div>
+                  <h4 class="text-xl font-semibold mb-2">Cluster Deployment</h4>
+                  <p class="text-gray-600 mb-1">Months 25–36</p>
+                  <ul class="text-gray-600 list-disc list-inside">
+                    <li>10–30 unit cluster rollout</li>
+                    <li>Centralised powder QA and sales channels</li>
+                    <li>Technician training and spares pipeline</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="hidden md:flex items-center justify-center w-10 h-10 bg-yellow-500 text-white font-bold border-4 border-white rounded-full shadow-lg z-10 reveal">3</div>
+              <div class="md:w-1/2 md:pl-12 mt-6 md:mt-0">
+                <div class="bg-white rounded-lg shadow p-6 max-w-md reveal reveal-delay-1">
+                  <p class="text-gray-700"><span class="font-semibold">Output:</span> commercial metrics, verified unit economics, export readiness.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row items-center">
+              <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+                <div class="bg-white rounded-lg shadow-lg p-6 md:ml-auto max-w-md reveal">
+                  <div class="inline-block bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm mb-3">4</div>
+                  <h4 class="text-xl font-semibold mb-2">Export Scale</h4>
+                  <p class="text-gray-600 mb-1">36+ months</p>
+                  <ul class="text-gray-600 list-disc list-inside">
+                    <li>International partners and distributors</li>
+                    <li>Localised compliance and certification</li>
+                    <li>Manufacturing scale and financing options</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="hidden md:flex items-center justify-center w-10 h-10 bg-purple-600 text-white font-bold border-4 border-white rounded-full shadow-lg z-10 order-1 md:order-2 reveal">4</div>
+              <div class="md:w-1/2 md:pl-12 order-3">
+                <div class="bg-white rounded-lg shadow p-6 max-w-md reveal reveal-delay-1">
+                  <p class="text-gray-700"><span class="font-semibold">Output:</span> export contracts, service network, scaled production.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="mt-16 text-center reveal">
+          <h3 class="text-3xl font-bold mb-4">Ready to transform dairy waste processing?</h3>
+          <p class="text-lg text-gray-600 mb-6 max-w-3xl mx-auto">Join the shift to efficient, modular drying. Let’s talk pilots, clusters and export scale.</p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="#contact" class="bg-blue-600 text-white hover:bg-blue-700 px-8 py-3 rounded-lg text-lg font-semibold">Request Demo</a>
+            <a href="#" class="bg-transparent border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-3 rounded-lg text-lg font-semibold">Download Brochure</a>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -194,26 +311,20 @@
 
   <!-- Scripts -->
   <script>
-    // --- Password handling ---
-    const PASSWORD_HASH = "7a032396bf12e1907fce79644df017015bd84d220a4dc12db22f2b961fd0b194"; // hash of "dairytech202%"
+    // Password handling
+    const PASSWORD_HASH = "7a032396bf12e1907fce79644df017015bd84d220a4dc12db22f2b961fd0b194"; // sha256("dairytech202%")
 
     async function sha256(text){
-      if (!('crypto' in window) || !crypto.subtle) return null; // not available in file:// etc
+      if (!('crypto' in window) || !crypto.subtle) return null;
       const enc = new TextEncoder().encode(text);
       const buf = await crypto.subtle.digest('SHA-256', enc);
       return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
     }
 
     async function checkPassword(input){
-      // Prefer secure hash route
       const h = await sha256(input);
       if (h) return h === PASSWORD_HASH;
-
-      // Dev-only fallback for file:// previews
-      if (location.protocol === 'file:') {
-        return input === 'dairytech202%';
-      }
-      // On http/https without WebCrypto (very rare), deny
+      if (location.protocol === 'file:') return input === 'dairytech202%'; // dev-only fallback
       return false;
     }
 
@@ -225,6 +336,7 @@
         document.getElementById("loginScreen").style.display = "none";
         document.getElementById("content").classList.remove("hidden");
         error.style.display = "none";
+        triggerInitialReveals();
       } else {
         error.style.display = "block";
         setTimeout(()=>{ error.style.display="none"; }, 3000);
@@ -232,23 +344,40 @@
     }
 
     document.getElementById("loginButton").addEventListener("click", tryLogin);
-    document.getElementById("passwordInput").addEventListener("keydown", (e)=>{
-      if(e.key === "Enter"){ tryLogin(); }
-    });
+    document.getElementById("passwordInput").addEventListener("keydown", (e)=>{ if(e.key === "Enter"){ tryLogin(); } });
 
-    // --- Tabs ---
+    // Tabs
     function openTab(evt, tabId) {
       const wrap = evt.currentTarget.closest('#technology');
       const tabs = wrap.querySelectorAll('.tab');
       const panels = wrap.querySelectorAll('.tab-content');
       tabs.forEach(t => t.classList.remove('active'));
-      panels.forEach(p => p.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active', 'show'));
       evt.currentTarget.classList.add('active');
       const panel = wrap.querySelector('#' + tabId);
-      if(panel) panel.classList.add('active');
+      if(panel) {
+        panel.classList.add('active');
+        requestAnimationFrame(()=> panel.classList.add('show'));
+      }
     }
 
-    // Optional: make header nav switch relevant tabs
+    // Scroll animations
+    const io = ('IntersectionObserver' in window) ? new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 }) : null;
+
+    function triggerInitialReveals(){
+      document.querySelectorAll('.reveal').forEach(el=>{
+        if(io){ io.observe(el); } else { el.classList.add('in-view'); }
+      });
+    }
+
+    // Nav tab shortcuts
     document.querySelectorAll('nav a[data-tab]').forEach(a=>{
       a.addEventListener('click', (e)=>{
         e.preventDefault();
